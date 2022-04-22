@@ -10,7 +10,7 @@
 <body>
 
     <div class="wrapper">
-        <textarea id="input" style="height: 300px; width: 400px;"></textarea>
+        <textarea id="editarea" style="height: 300px; width: 400px;"></textarea>
         
     </div>
     <div class="wrapper">
@@ -25,7 +25,7 @@
        const txtHistory = new window.UndoRedojs(5)
         // Get the textarea
         const textarea = document.querySelector("#input")
-        // Add event listener for inputs on the textarea
+        // Add event listener for editareas on the textarea
         textarea.addEventListener('input', () => { 
             // Check if the new textarea value is different
             if (txtHistory.current() !== textarea.value) {
@@ -37,47 +37,35 @@
         setTimeout(() => {
             if (textarea.value) txtHistory.record(textarea.value, true)
         }, 100)
-        // The undo button
+
         document.querySelector("#undo").addEventListener('click', () => {
             if (txtHistory.undo(true) !== undefined) {
                 textarea.value = txtHistory.undo()
             }
         })
-        // The redo button
         document.querySelector("#redo").addEventListener('click', () => {
             if (txtHistory.redo(true) !== undefined) {
                 textarea.value = txtHistory.redo()
             }
         })
+        let state=true
         handleOrientationEvent = function(e) {
             var x = event.acceleration.x;
             var y = event.acceleration.y;
-            var z = event.acceleration.z;
-            // document.getElementById("change").innerHTML = rot;
-    
-            if((x > 30 || y > 10 || x < -20 || y < -10) && z < 8 && z > -8){
-                //document.getElementById("change").innerHTML = "undo";
-                
+            var z = event.acceleration.z;    
+            if((x > 30 || y > 10 || x < -20 || y < -10) && z < 8 && z > -8  && state===true){
                 document.getElementById("undo").click();
-                 
+                state=false;
             }
             else if(z < -9 || z > 9){
-                //document.getElementById("change").innerHTML = "redo";
-                
                 document.getElementById("redo").click();
-                
+                state=false
             }
-                // document.getElementById("change").innerHTML = "redo";
-            // if (rot-180 > 0){
-            //     window.alert("right");
-            // }else{
-            //     window.alert("left");
-            // }
+            else{
+                state=true
+            }
          }
     
-         window.addEventListener('devicemotion', handleOrientationEvent, false);
-
-    
-        
+         window.addEventListener('devicemotion', handleOrientationEvent, false);    
     </script>
 </body>
