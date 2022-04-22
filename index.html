@@ -53,15 +53,15 @@
             var x = event.acceleration.x;
             var y = event.acceleration.y;
             var z = event.acceleration.z;    
-            if(((x > 10 || y > 10 || x < -10 || y < -10) && z < 8 && z > -8) && state===true){
+            if(((x > 5 || y > 5 || x < -5 || y < -5) && z < 4 && z > -4) && state===true){
                 document.getElementById("undo").click();
                 state=false;
             }
-            if((z < -9 || z > 9) && state===true){
+            if((z < -4.5 || z > 4.5) && state===true){
                 document.getElementById("redo").click();
                 state=false
             }
-            if(x < 10 || y < 10 || x > -10 || y > -10){
+            if(x < 5 || y < 5 || x > -5 || y > -5){
                 state=true
             }
          }
