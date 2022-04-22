@@ -45,6 +45,8 @@
             if (textarea.value) txtHistory.record(textarea.value, true)
         }, 100)
 
+        let state = true
+
         document.querySelector("#undo").addEventListener('click', () => {
             if (txtHistory.undo(true) !== undefined) {
                 textarea.value = txtHistory.undo()
@@ -55,32 +57,20 @@
                 textarea.value = txtHistory.redo()
             }
         })
-        let state = true
-        trackOrientation = function (e) {
-            // var x = event.alpha;
-            var y = event.beta;
-            // var z = event.gamma;    
-            if (y > 45 && state == true) {
+        
+        let  trackOrientation = (e) => {
 
-                document.getElementById("redo").click();
-                state = false
-
-            }
-
-            if (y >110 && state == true) {
-
+            let z = event.gamma;    
+            if (z > 60 && state == true) {
                 document.getElementById("undo").click();
-
                 state = false
-
             }
-
-
-
-            if (y >110 && y >60) {
-
+            if (z < 60 && state == true) {
+                document.getElementById("undo").click();
+                state = false
+            }
+            if (z<30||z> -30) {
                 state = true
-
             }
         }
 
