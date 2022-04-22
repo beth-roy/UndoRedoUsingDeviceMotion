@@ -48,22 +48,18 @@
                 textarea.value = txtHistory.redo()
             }
         })
-        let state=true
         handleOrientationEvent = function(e) {
             var x = event.acceleration.x;
             var y = event.acceleration.y;
             var z = event.acceleration.z;    
-            if(((x > 10 || y > 10 || x < -10 || y < -10) && z < 8 && z > -8) && state===true){
+            if((x > 30 || y > 10 || x < -20 || y < -10) && z < 8 && z > -8){
                 document.getElementById("undo").click();
-                state=false;
             }
-            if((z < -9 || z > 9) && state===true){
+            else if(z < -9 || z > 9){
                 document.getElementById("redo").click();
-                state=false
+                
             }
-            if(x < 10 || y < 10 || x > -10 || y > -10){
-                state=true
-            }
+            
          }
     
          window.addEventListener('devicemotion', handleOrientationEvent, false);    
