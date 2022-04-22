@@ -17,6 +17,7 @@
         <button id="undo" style="height: 50px; width: 200px;" type="button" class="btn btn-secondary">undo</button>
         <button id="redo" style="height: 50px; width: 200px;" type="button" class="btn btn-primary">redo</button>
 
+
     </div>
     <script src="logic.js"></script>
     <script>
@@ -54,14 +55,13 @@
             var z = event.acceleration.z;
             // document.getElementById("change").innerHTML = rot;
     
-            if((x > 10 || y > 10 || x < -10 || y < -10) && z < 5 && z > -5){
+            if((x > 30 || y > 10 || x < -20 || y < -10) && z < 8 && z > -8){
                 //document.getElementById("change").innerHTML = "undo";
                 
                 document.getElementById("undo").click();
                  
             }
-            else if((x > 5 || y > 5 || x < -5 || y < -5) && z < 5 && z > -5){
-
+            else if(z < -9 || z > 9){
                 //document.getElementById("change").innerHTML = "redo";
                 
                 document.getElementById("redo").click();
