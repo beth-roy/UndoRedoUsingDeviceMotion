@@ -8,30 +8,36 @@
 </head>
 
 <body>
-    <div><p>Move your phone left right to undo</p></div>
-    <div><p>Move your phone up and down to redo</p></div>
+    <div>
+        <p>Move your phone left right to undo</p>
+    </div>
+    <div>
+        <p>Move your phone up and down to redo</p>
+    </div>
     <div>
         <textarea id="input" style="height: 200px; width: 300px;"></textarea>
-        
+
     </div>
     <div class="wrapper">
-        <button id="undo" style="margin-top: 20px; height: 50px; width: 150px; background-color:#4141ca; color: white;">undo</button>
-        <button id="redo" style="margin-top: 20px; height: 50px; width: 150px;background-color:#4141ca; color: white;" >redo</button>
+        <button id="undo"
+            style="margin-top: 20px; height: 50px; width: 150px; background-color:#4141ca; color: white;">undo</button>
+        <button id="redo"
+            style="margin-top: 20px; height: 50px; width: 150px;background-color:#4141ca; color: white;">redo</button>
 
 
     </div>
     <script src="logic.js"></script>
     <script>
-       // Require the library function
-       const txtHistory = new window.UndoRedojs(5)
+        // Require the library function
+        const txtHistory = new window.UndoRedojs(5)
         // Get the textarea
         const textarea = document.querySelector("#input")
         // Add event listener for editareas on the textarea
-        textarea.addEventListener('input', () => { 
+        textarea.addEventListener('input', () => {
             // Check if the new textarea value is different
             if (txtHistory.current() !== textarea.value) {
                 // Record the textarea value
-                txtHistory.record(textarea.value,true)
+                txtHistory.record(textarea.value, true)
             }
         })
         // Some browsers will auto-fill the textarea again after reloading, this will deal with that
@@ -49,24 +55,35 @@
                 textarea.value = txtHistory.redo()
             }
         })
-        let state=true
-        trackMotion = function(e) {
-            var x = event.acceleration.x;
-            var y = event.acceleration.y;
-            var z = event.acceleration.z;    
-            if(((x > 30 || y > 3  || x < -30 || y < -3) && z < 3 && z > -3) && state===true){
-                document.getElementById("undo").click();
-                state=false;
-            }
-            if((z < -15 || z > 15) && state===true){
+        let state = true
+        trackOrientation = function (e) {
+            // var x = event.alpha;
+            var y = event.beta;
+            // var z = event.gamma;    
+            if (y < -45 && state == true) {
+
                 document.getElementById("redo").click();
-                state=false
+                state = false
+
             }
-            if(x < 30 ||  x > -30 ){
-                state=true
+
+            if (y > 45 && state == true) {
+
+                document.getElementById("undo").click();
+
+                state = false
+
             }
-         }
-    
-         window.addEventListener('devicemotion', trackMotion, false);    
+
+
+
+            if (y > -45 && y < 45) {
+
+                state = true
+
+            }
+        }
+
+        window.addEventListener('deviceorientation', trackOrientation, false);    
     </script>
 </body>
