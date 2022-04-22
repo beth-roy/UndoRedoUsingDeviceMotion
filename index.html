@@ -54,7 +54,7 @@
             var x = event.acceleration.x;
             var y = event.acceleration.y;
             var z = event.acceleration.z;    
-            if(((x > 6 || y > 12  || x < -6 || y < -12) && z < 15 && z > -15) && state===true){
+            if(((x > 20 || y > 12  || x < -20 || y < -12) && z < 8 && z > -8) && state===true){
                 document.getElementById("undo").click();
                 state=false;
             }
@@ -62,7 +62,7 @@
                 document.getElementById("redo").click();
                 state=false
             }
-            if(x < 12 || y < 12 || x > -12 || y > -12){
+            if(x < 20 || y < 20 || x > -12 || y > -12){
                 state=true
             }
          }
