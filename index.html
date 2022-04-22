@@ -60,14 +60,14 @@
             // var x = event.alpha;
             var y = event.beta;
             // var z = event.gamma;    
-            if (y > 150 && state == true) {
+            if (y > 45 && state == true) {
 
                 document.getElementById("redo").click();
                 state = false
 
             }
 
-            if (y > 45 && y<150 && state == true) {
+            if (y >110 && state == true) {
 
                 document.getElementById("undo").click();
 
@@ -77,7 +77,7 @@
 
 
 
-            if (y > -45 && y < 45) {
+            if (y >110 && y >60) {
 
                 state = true
 
